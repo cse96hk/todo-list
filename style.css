@@ -1,0 +1,37 @@
+body{
+    margin: 0;
+    background-image: url("/images/backgrund.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+
+ 
+}
+.container {
+    background-color: white;
+    height: 100vh;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+.tabs {
+    position: relative;
+    display: flex;   
+    border-bottom: 1px solid gray;
+}
+.tabs div {
+    padding: 30px;
+    cursor: pointer;
+    
+}
+#bottom_line{
+    position: absolute;
+    top: 81px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    width: 100px;
+    background-color: rgb(0, 0, 0);
+    transition: 0.5s;
+    margin: 0;
+    padding: 0;
+}
