@@ -7,31 +7,49 @@ body{
 
  
 }
+
 .container {
     background-color: white;
     height: 100vh;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
+
+.task-area {
+    border :1px solid lightgray;
+    margin-top: 2em;
+}
 .tabs {
     position: relative;
     display: flex;   
-    border-bottom: 1px solid gray;
+    border-bottom :1px solid lightgray;
 }
 .tabs div {
-    padding: 30px;
-    cursor: pointer;
+    padding: 1em;
     
 }
 #bottom_line{
     position: absolute;
-    top: 81px;
+    top: 53px;
     bottom: 0;
     left: 0;
-    right: 0;
-    height: 3px;
-    width: 100px;
+    height: 4px;
+    width: 60px;
     background-color: rgb(0, 0, 0);
     transition: 0.5s;
-    margin: 0;
     padding: 0;
+}
+.task {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+    
+}
+
+.task .task-buttons button i {
+    color: gray;
+    
+}
+
+.valid-feedback {
+    display: inline;
 }
