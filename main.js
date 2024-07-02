@@ -48,6 +48,7 @@ function addTask() {
     taskItems.push(taskArrey);
     console.log(taskItems);
     taskInnerHTML(); // taskList에 taskItem의 상태를 추가 함수  호출
+    taskInput.value = ""; // taskInput를 초기화
 }
 
 function taskInnerHTML() {
