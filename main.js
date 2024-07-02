@@ -15,6 +15,7 @@ let addBtn = document.getElementById("add-btn");
 let taskItems = [];
 let task = document.querySelector(".task");
 let taskList = document.getElementById("task-list");
+let resetBtn = document.getElementById("reset-btn");
 
 // 이벤트
 addBtn.addEventListener("click", addTask); //  입력버튼 클릭시
@@ -23,6 +24,11 @@ taskInput.addEventListener("focus", function (event) {
     validFeedback.textContent = "";
 }); // task-input 초기화 , valid-feedback 초기화
 
+resetBtn.addEventListener("click", function () {
+    taskInput.value = "";
+    taskItems = [];
+    taskList.innerHTML = "";
+});
 //함수
 function addTask() {
     // 할일 등록 함수
@@ -46,11 +52,19 @@ function taskInnerHTML() {
         resultHTML += `<div class="task">
                         ${item}
                         <div class="task-buttons">
-                            <button>check</button>
-                            <button>delete</button>
+                            <button type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="top"
+                    data-bs-custom-class="custom-tooltip"
+                    data-bs-title="Task Item Complete"><i class="bi bi-check-circle"></i></button>
+                            <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top"
+                    data-bs-custom-class="custom-tooltip"
+                    data-bs-title="Task Item Delete"><i class="bi bi-trash"></i></button>
                         </div>
                     </div>`;
     }
 
     taskList.innerHTML = resultHTML; // taskList에 resultHTML의 상태를 추가
 }
+
+// 부트스트립 툴팁 활성화
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+const tooltipList = [...tooltipTriggerList].map((tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl));
