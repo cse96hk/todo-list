@@ -68,7 +68,7 @@ function taskInnerHTML() {
                         ${item}
                         <div class="task-buttons">
                             <button type="button" class="btn btn-success" onclick="completeTask(${taskItems[i].ID})" ><i class="bi bi-circle"></i></button>
-                            <button type="button" class="btn btn-dark" ><i class="bi bi-trash"></i></button>
+                            <button type="button" class="btn btn-dark" onclick="deleteTask(${taskItems[i].ID})"><i class="bi bi-trash"></i></button>
                         </div>
                     </div>`;
         }
@@ -85,6 +85,16 @@ function completeTask(id) {
     for (let i = 0; i < taskItems.length; i++) {
         if (taskItems[i].ID === id) {
             taskItems[i].taskCompleted = !taskItems[i].taskCompleted;
+            break;
+        }
+    }
+    taskInnerHTML();
+}
+
+function deleteTask(id) {
+    for (let i = 0; i < taskItems.length; i++) {
+        if (taskItems[i].ID === id) {
+            taskItems.splice(i, 1);
             break;
         }
     }
