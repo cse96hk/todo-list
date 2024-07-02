@@ -19,6 +19,7 @@ let resetBtn = document.getElementById("reset-btn");
 
 // 이벤트
 addBtn.addEventListener("click", addTask); //  입력버튼 클릭시
+
 taskInput.addEventListener("focus", function (event) {
     event.target.value = "";
     validFeedback.textContent = "";
@@ -29,26 +30,29 @@ resetBtn.addEventListener("click", function () {
     taskInput.value = "";
     taskItems = [];
     taskList.innerHTML = "";
+    validFeedback.textContent = "";
 });
 //함수
 function addTask() {
+    console.log("taskInput.value : ", taskInput.value);
     // 할일 등록 함수
     //let taskVal = taskInput.value;
+    if (taskInput.value == "") {
+        //alert("할일 내용을 입력하세요.");
+        validFeedback.textContent = "할일 내용을 입력하세요.";
+        return;
+    }
     let taskArrey = {
         ID: Date.now(),
         taskContent: taskInput.value,
         taskCompleted: false,
     };
-    if (taskArrey["taskContent"] === "") {
-        //alert("할일 내용을 입력하세요.");
-        validFeedback.textContent = "할일 내용을 입력하세요.";
-        return false;
-    }
+
     console.log(taskArrey);
     taskItems.push(taskArrey);
     console.log(taskItems);
+    taskInput.value = "";
     taskInnerHTML(); // taskList에 taskItem의 상태를 추가 함수  호출
-    taskInput.value = ""; // taskInput를 초기화
 }
 
 function taskInnerHTML() {
@@ -61,7 +65,7 @@ function taskInnerHTML() {
                         <div class="task-done">${item}</div>
                         <div class="task-buttons">
                             <button type="button" class="btn btn-warning" onclick="completeTask(${taskItems[i].ID})" ><i class="bi bi-check-circle"></i></button>
-                            <button type="button" class="btn btn-dark" ><i class="bi bi-trash"></i></button>
+                            <button type="button" class="btn btn-dark" onclick="deleteTask(${taskItems[i].ID})" ><i class="bi bi-trash"></i></button>
                         </div>
                     </div>`;
         } else {
