@@ -38,7 +38,7 @@
 과제제출 URL
 ---
 [할일앱만들기] https://todo-in-list.netlify.app
-✅ : 작업완료 된 기능
+
 
 기능
 ---
