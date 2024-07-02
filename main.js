@@ -24,6 +24,7 @@ taskInput.addEventListener("focus", function (event) {
     validFeedback.textContent = "";
 }); // task-input 초기화 , valid-feedback 초기화
 
+// reset
 resetBtn.addEventListener("click", function () {
     taskInput.value = "";
     taskItems = [];
@@ -32,34 +33,45 @@ resetBtn.addEventListener("click", function () {
 //함수
 function addTask() {
     // 할일 등록 함수
-    let taskVal = taskInput.value;
-    if (taskVal === "") {
+    //let taskVal = taskInput.value;
+    let taskArrey = {
+        ID: Date.now(),
+        taskContent: taskInput.value,
+        taskCompleted: false,
+    };
+    if (taskArrey["taskContent"] === "") {
         //alert("할일 내용을 입력하세요.");
         validFeedback.textContent = "할일 내용을 입력하세요.";
         return false;
     }
-    console.log(taskVal);
-    taskItems.push(taskVal);
+    console.log(taskArrey);
+    taskItems.push(taskArrey);
     console.log(taskItems);
-    taskInnerHTML();
+    taskInnerHTML(); // taskList에 taskItem의 상태를 추가 함수  호출
 }
 
 function taskInnerHTML() {
     // 할일 목록 함수
     let resultHTML = "";
     for (let i = 0; i < taskItems.length; i++) {
-        let item = taskItems[i];
-        resultHTML += `<div class="task">
-                        ${item}
+        let item = taskItems[i].taskContent;
+        if (taskItems[i].taskCompleted === true) {
+            resultHTML += `<div class="task on">
+                        <div class="task-done">${item}</div>
                         <div class="task-buttons">
-                            <button type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="top"
-                    data-bs-custom-class="custom-tooltip"
-                    data-bs-title="Task Item Complete"><i class="bi bi-check-circle"></i></button>
-                            <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top"
-                    data-bs-custom-class="custom-tooltip"
-                    data-bs-title="Task Item Delete"><i class="bi bi-trash"></i></button>
+                            <button type="button" class="btn btn-warning" onclick="completeTask(${taskItems[i].ID})" ><i class="bi bi-check-circle"></i></button>
+                            <button type="button" class="btn btn-dark" ><i class="bi bi-trash"></i></button>
                         </div>
                     </div>`;
+        } else {
+            resultHTML += `<div class="task">
+                        ${item}
+                        <div class="task-buttons">
+                            <button type="button" class="btn btn-success" onclick="completeTask(${taskItems[i].ID})" ><i class="bi bi-circle"></i></button>
+                            <button type="button" class="btn btn-dark" ><i class="bi bi-trash"></i></button>
+                        </div>
+                    </div>`;
+        }
     }
 
     taskList.innerHTML = resultHTML; // taskList에 resultHTML의 상태를 추가
@@ -68,3 +80,13 @@ function taskInnerHTML() {
 // 부트스트립 툴팁 활성화
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
 const tooltipList = [...tooltipTriggerList].map((tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl));
+
+function completeTask(id) {
+    for (let i = 0; i < taskItems.length; i++) {
+        if (taskItems[i].ID === id) {
+            taskItems[i].taskCompleted = !taskItems[i].taskCompleted;
+            break;
+        }
+    }
+    taskInnerHTML();
+}

@@ -52,6 +52,12 @@ body{
 .task:last-child {
     border-bottom: none;
  }
+ .task-done {
+    text-decoration: line-through;
+ }
+ .task .on {
+    background-color: lightgreen;
+ }
 
 
 
