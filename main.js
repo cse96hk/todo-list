@@ -70,6 +70,7 @@ taskInput.addEventListener("focus", function (event) {
 resetBtn.addEventListener("click", function () {
     taskInput.value = "";
     taskItems = [];
+    filerList = [];
     taskList.innerHTML = "";
 });
 
