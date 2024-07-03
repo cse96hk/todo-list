@@ -180,6 +180,8 @@ function deleteTask(id) {
             }
         }
         taskInnerHTML();
+    } else {
+        taskInnerHTML();
     }
 }
 
