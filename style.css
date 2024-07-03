@@ -29,6 +29,8 @@ body{
 }
 .tabs div {
     padding: 1em;
+    cursor: pointer;
+    transition: 0.5s;
     
 }
 #bottom_line{
@@ -70,4 +72,17 @@ body{
     bottom: 0;
     width: 100%;
     text-align: center;
+}
+
+
+.modal-dialog{
+    overflow-y: initial !important
+}
+.modal-body{
+    height: 400px;
+    overflow-y: auto;
+}
+.taskEmpty {
+    text-align: center;
+    padding: 1em;
 }
