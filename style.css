@@ -75,10 +75,10 @@ body{
 }
 
 
-.modal-dialog{
+.container .modal-dialog{
     overflow-y: initial !important
 }
-.modal-body{
+.container .modal-body{
     height: 400px;
     overflow-y: auto;
 }

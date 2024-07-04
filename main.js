@@ -17,6 +17,9 @@ let taskList = document.getElementById("task-list");
 let resetBtn = document.getElementById("reset-btn");
 let bottomLine = document.getElementById("bottom_line"); // bottom_line
 let tabs = document.querySelectorAll(".tabs div");
+let allCount = document.getElementById("all-count");
+let goCount = document.getElementById("go-count");
+let doneCount = document.getElementById("done-count");
 let mode = "all"; // 선택된 탭 id
 let filerList = []; // 지정된 할일 배열
 const MAX_TASKS = 6;
@@ -72,17 +75,19 @@ resetBtn.addEventListener("click", function () {
     taskItems = [];
     filerList = [];
     taskList.innerHTML = "";
+    updateCounts();
+    taskInnerHTML();
 });
 
 // 함수
 function addTask() {
     // 입력 필드 값 확인 후 실행 방지
     if (taskInput.value.trim() === "") {
-        return;
+        return tt();
     }
 
     if (taskItems.length >= MAX_TASKS) {
-        alert("할일은 6개까지만 입력 가능합니다.");
+        alert("할일은 6개까지 입력가능합니다.");
         addBtn.disabled = false;
         return;
     }
@@ -140,6 +145,12 @@ function taskInnerHTML() {
     }
 
     taskList.innerHTML = resultHTML; // taskList에 resultHTML의 상태를 추가
+    updateCounts();
+}
+function updateCounts() {
+    allCount.textContent = taskItems.length;
+    goCount.textContent = taskItems.filter((task) => !task.taskCompleted).length;
+    doneCount.textContent = taskItems.filter((task) => task.taskCompleted).length;
 }
 
 // 부트스트립 툴팁 활성화
@@ -153,7 +164,30 @@ function completeTask(id) {
             break;
         }
     }
-    taskInnerHTML();
+    // 선택 했을때 바로 사라지게 하는 ...
+    if (mode === "all") {
+        // all
+        taskInnerHTML();
+    } else if (mode === "onGoing") {
+        // onGoing
+        filerList = [];
+        for (i = 0; i < taskItems.length; i++) {
+            if (taskItems[i].taskCompleted === false) {
+                filerList.push(taskItems[i]);
+            }
+        }
+
+        taskInnerHTML();
+    } else if (mode === "done") {
+        //  done
+        filerList = [];
+        for (let i = 0; i < taskItems.length; i++) {
+            if (taskItems[i].taskCompleted === true) {
+                filerList.push(taskItems[i]);
+            }
+        }
+        taskInnerHTML();
+    }
 }
 
 function deleteTask(id) {
@@ -216,4 +250,8 @@ document.addEventListener("DOMContentLoaded", function () {
     style.type = "text/css";
     style.innerHTML = `.modal .modal-body {max-height: ${document.body.clientHeight * 0.8}px;overflow-y: auto;}.modal-open .modal{overflow-y: hidden !important;}`;
     document.head.appendChild(style);
+});
+// Initialize Bootstrap toast
+$(document).ready(function () {
+    $("#taskLimitToast").toast({ delay: 3000 });
 });
