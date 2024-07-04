@@ -1,8 +1,11 @@
+@import url('https://webfontworld.github.io/gmarket/GmarketSans.css');
 body{
+    font-family:'GmarketSans', sans-serif;
     margin: 0;
     background-image: url("/images/backgrund.png");
     background-repeat: no-repeat;
     background-size: cover;
+    min-width: 370px;
     
 
  
@@ -86,3 +89,4 @@ body{
     text-align: center;
     padding: 1em;
 }
+
