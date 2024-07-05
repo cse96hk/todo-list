@@ -23,9 +23,34 @@ let doneCount = document.getElementById("done-count");
 let mode = "all"; // 선택된 탭 id
 let filerList = []; // 지정된 할일 배열
 const MAX_TASKS = 6;
-taskInnerHTML();
+
+// 페이지 로드 시 초기화
+document.addEventListener("DOMContentLoaded", function () {
+    // "전체" 탭을 초기 활성화 상태로 설정
+    let allTab = document.getElementById("all");
+    allTab.classList.add("active");
+    allTab.style.fontWeight = "bold";
+
+    // bottomLine 초기 위치 설정
+    bottomLine.style.left = allTab.offsetLeft + "px";
+    bottomLine.style.width = allTab.offsetWidth + "px";
+    // 할 일 목록 초기 렌더링
+    taskInnerHTML();
+    // 추가된 스타일 적용
+    const style = document.createElement("style");
+    style.type = "text/css";
+    style.innerHTML = `.modal .modal-body {max-height: ${document.body.clientHeight * 0.8}px;overflow-y: auto;}.modal-open .modal{overflow-y: hidden !important;}`;
+    document.head.appendChild(style);
+});
 // 탭을 이용해 아이템들을 상태별로 나누어서 볼 수 있다.
-tabs.forEach((tab) => tab.addEventListener("click", (e) => bottomLineIndicator(e)));
+tabs.forEach((tab) => {
+    tab.addEventListener("click", (e) => bottomLineIndicator(e));
+    tab.addEventListener("mouseenter", (e) => hoverIndicator(e));
+    tab.addEventListener("mouseleave", (e) => resetIndicator(e));
+});
+
+// 탭을 이용해 아이템들을 상태별로 나누어서 볼 수 있다.
+//tabs.forEach((tab) => tab.addEventListener("click", (e) => bottomLineIndicator(e)));
 
 // 탭 클릭시 이벤트 - 언더바 이동
 function bottomLineIndicator(e) {
@@ -41,6 +66,20 @@ function bottomLineIndicator(e) {
     // 클릭된 탭의 폰트를 굵게 설정
     e.target.style.fontWeight = "bold";
     filter(e);
+}
+// 탭 마우스 오버시 이벤트 - 언더바 이동
+function hoverIndicator(e) {
+    bottomLine.style.left = e.target.offsetLeft + "px";
+    bottomLine.style.width = e.target.offsetWidth + "px";
+}
+
+// 탭 마우스 아웃시 이벤트 - 언더바 초기화
+function resetIndicator(e) {
+    let activeTab = document.querySelector(".tabs .active");
+    if (activeTab) {
+        bottomLine.style.left = activeTab.offsetLeft + "px";
+        bottomLine.style.width = activeTab.offsetWidth + "px";
+    }
 }
 
 // taskInput 값 변경 시 addBtn 상태 업데이트
@@ -244,14 +283,3 @@ function filter(e) {
         taskInnerHTML();
     }
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-    const style = document.createElement("style");
-    style.type = "text/css";
-    style.innerHTML = `.modal .modal-body {max-height: ${document.body.clientHeight * 0.8}px;overflow-y: auto;}.modal-open .modal{overflow-y: hidden !important;}`;
-    document.head.appendChild(style);
-});
-// Initialize Bootstrap toast
-$(document).ready(function () {
-    $("#taskLimitToast").toast({ delay: 3000 });
-});
