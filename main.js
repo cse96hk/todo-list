@@ -20,6 +20,9 @@ let tabs = document.querySelectorAll(".tabs div");
 let allCount = document.getElementById("all-count");
 let goCount = document.getElementById("go-count");
 let doneCount = document.getElementById("done-count");
+let clcok = document.getElementById("clock");
+let dataPrint = document.querySelector("#date-print");
+let timePrint = document.querySelector("#time-print");
 let mode = "all"; // 선택된 탭 id
 let filerList = []; // 지정된 할일 배열
 const MAX_TASKS = 6;
@@ -283,3 +286,21 @@ function filter(e) {
         taskInnerHTML();
     }
 }
+
+function currentTime() {
+    const data = new Date();
+    const weeks = ["일", "월", "화", "수", "목", "금", "토"];
+    const years = data.getFullYear();
+    const months = data.getMonth() + 1;
+    const days = data.getDate();
+    const week = weeks[data.getDay()];
+
+    const hours = String(data.getHours()).padStart(2, "0");
+    const minutes = String(data.getMinutes()).padStart(2, "0");
+    const seconds = String(data.getSeconds()).padStart(2, "0");
+
+    dataPrint.innerText = `${years}.${months}.${days}.(${week})`;
+    timePrint.innerText = `${hours}:${minutes}:${seconds}`;
+}
+currentTime();
+setInterval(currentTime, 1000);
